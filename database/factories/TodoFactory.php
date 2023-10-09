@@ -20,6 +20,7 @@ class TodoFactory extends Factory
             "title" => $this->faker->sentence,
             "description" => $this->faker->paragraph,
             "user_id" => rand(1, 5),
+            "completed" => false,
         ];
     }
 }
