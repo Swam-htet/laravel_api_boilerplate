@@ -18,17 +18,20 @@ class TodoApiController extends Controller
 
     public function show($id)
     {
+
         $todo = Todo::find($id);
         return $todo;
     }
 
 
-    public function store()
+    public function store(Request $request)
     {
         $newTodo = new Todo;
         $newTodo->title = request()->title;
         $newTodo->description = request()->description;
         $newTodo->user_id = request()->user_id;
+        $newTodo->completed = request()->completed;
+
 
         $newTodo->save();
         return $newTodo;
@@ -36,13 +39,14 @@ class TodoApiController extends Controller
     }
 
 
-    public function update($id)
+    public function update(Request $request,$id)
     {
         $todo = Todo::find($id);
         $todo->title = request()->title;
         $todo->description = request()->description;
+        $todo->user_id = request()->user_id;
+        $todo->completed = request()->completed;
         $todo->save();
-        return $todo;
     }
 
 
