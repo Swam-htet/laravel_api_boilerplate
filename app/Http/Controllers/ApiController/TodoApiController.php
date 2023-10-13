@@ -20,7 +20,11 @@ class TodoApiController extends Controller
     {
 
         $todo = Todo::find($id);
-        return $todo;
+
+        if($todo){
+            return [$todo];
+        }
+        return [];
     }
 
 
@@ -34,7 +38,7 @@ class TodoApiController extends Controller
 
 
         $newTodo->save();
-        return $newTodo;
+        return [$newTodo];
 
     }
 
@@ -42,18 +46,28 @@ class TodoApiController extends Controller
     public function update(Request $request,$id)
     {
         $todo = Todo::find($id);
-        $todo->title = request()->title;
-        $todo->description = request()->description;
-        $todo->user_id = request()->user_id;
-        $todo->completed = request()->completed;
-        $todo->save();
+
+        if ($todo){
+            $todo->title = request()->title;
+            $todo->description = request()->description;
+            $todo->user_id = request()->user_id;
+            $todo->completed = request()->completed;
+            $todo->save();
+            return [$todo];
+        }
+        return [];
+
     }
 
 
     public function destroy($id)
     {
         $todo = Todo::find($id);
-        $todo->delete();
-        return $todo;
+        if($todo){
+            $todo->delete();
+            return [$todo];
+        }
+        return [];
+
     }
 }
